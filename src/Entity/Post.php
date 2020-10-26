@@ -40,7 +40,7 @@ class Post
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=category::class, inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="posts")
      */
     private $category;
 
@@ -128,7 +128,7 @@ class Post
     }
 
     /**
-     * @return Collection|category[]
+     * @return Collection|Category[]
      */
     public function getCategory(): Collection
     {
@@ -144,7 +144,7 @@ class Post
         return $this;
     }
 
-    public function removeCategory(category $category): self
+    public function removeCategory(Category $category): self
     {
         $this->category->removeElement($category);
 
