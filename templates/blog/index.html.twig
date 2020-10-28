@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section class="row">
-    <h1 class="title">Welcome to DevBlog !</h1>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam similique veritatis neque itaque. Nam sunt deserunt laudantium ullam culpa, rerum quas quibusdam error impedit, at rem? Ut mollitia minus amet asperiores quod voluptate ipsam! Vel quo laboriosam dolor enim exercitationem ipsam! Ipsum repudiandae architecto beatae similique in ea laborum mollitia?</p>
-</section>
-<section class="row">
-    <p><small>We are using the controller : {{controller_name}} </small></p>
-   {# Voici un commentaire #}
-</section>
+    <section class="row">
+        <h1 class="title"> Welcome to DevBlog !</h1>
+    </section>
+    <section class="row">
+    <ul class="list-unstyled">
+        {% for post in posts %}
+        <li class="media mt-2">
+            <img src="https://via.placeholder.com/150" class="mr-3" alt="placeholder image">
+            <div class="media-body">
+                <h5 class="mt-0">{{post.title}}</h5>
+                <p>{{post.content |raw }}</p>
+                <p><small>{{post.createdAt | date('d/m/Y H:i')}} by {{post.user}}</small></p>
+                <a href="{{path("app_blog_show", {id: post.id})}}" class="btn btn-primary"> Voir l'article</a>
+                {# <p><i>Categories : {{post.categories}}</i> #}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    </section>
 
 {% endblock %}

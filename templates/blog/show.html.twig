@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="row">
+        <h1 class="title"> Welcome to DevBlog !</h1>
+    </section>
+    <section class="row">
+    <div class="jumbotron col-12">
+        <div class="media mt-2 text-center">
+            <img src="{{ vich_uploader_asset(post) }}" class="mr-3 img-fluid" alt="{{ post.title }}" style="height:500px;width:auto;">
+            <div class="media-body">
+                <h2 class="mt-0">{{post.title}}</h2>
+                <p>{{post.content |raw }}</p>
+                <p><small>{{post.createdAt | date('d/m/Y H:i')}} by {{post.user}}</small></p>
+                <p><i>Categories : {% for cat in post.category %} {{cat}} {% endfor %}</i></p>
+            </div>
+        </div>
+    </div>
+    </section>
+    <section class="row">
+        <div class="col-4 alert alert-danger">
+            {% if app.user %}
+                {{form(form)}}
+            {% else %}
+                <h5> Vous devez vous connecter pour commenter cette publication. </h5>
+            {% endif %}
+        </div>
+        <div class="col-8">
+            {% for comment in post.comments %}
+                <div class="media mt-2 text-center border border-info">
+                    <img src="https://via.placeholder.com/150" class="mr-3" alt="placeholder image">
+                    <div class="media-body">
+                        <h5>
+                            {{comment.user}} 
+                            {% if  comment.rate == true %} 
+                            <i class="fas fa-heart"></i> 
+                            {% else %} 
+                            <i class="far fa-heart"></i> 
+                            {% endif %}
+                        </h5>
+                        <p>{{comment.content}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{{path('app_home')}}" class="btn btn-primary"> Retour à l'accueil</a>
+    </section>
+
+{% endblock %}
